@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Practica de JS</title>
+</head>
+<body>
+
+	<section><h1>Titulo</h1></section>
+
+	<section>
+	<table id="tabla">
+
+		<th>Nombre</th>
+		<th>Palo</th>
+		<th>Valor</th>
+		<th>Definicion</th>
+
+	</table>
+	</section>
+
+	<section><button id="boton">Ejecutar</button></section>
+
+	<script type="text/javascript">
+		
+		var json={
+			"cartas":[
+			{
+				"nombre": "2 de picas",
+				"palo": "pica",
+				"valor":2
+			},
+			{
+				"nombre": "2 de diamantes",
+				"palo": "diamante",
+				"valor":2
+			},
+			{
+				"nombre": "3 de diamantes",
+				"palo": "diamante",
+				"valor":3
+			}
+			]
+		}
+
+		function esPar(numero){
+		if(numero%2==0) return ("el numero es par");
+		else return("el numero es impar");
+	}
+
+		function verificarNumero(){
+			var numero = prompt("Ingrese un numero");
+			esPar(numero);
+
+		}
+
+		function cargarTabla(){
+			var url = "http://demo6497253.mockable.io/cartas";
+
+			fetch(url)
+				.then(response => response.json())
+				.then(data=>generarTabla(data))
+			.catch(error=>{});
+		}
+
+		function generarTabla(json){
+			const tabla = document.getElementById("tabla");
+
+		}
+		function cargarTabla(){
+
+			const tabla = document.getElementById("tabla");
+
+			json.cartas.forEach( carta =>{
+			const tr = document.createElement('tr');
+			const tdNombre = document.createElement('td');
+				tdNombre.textContent =carta.nombre;
+				tr.appendChild(tdNombre);
+			const tdPalo = document.createElement('td');
+				tdPalo.textContent =carta.palo;
+				tr.appendChild(tdPalo);
+			const tdValor = document.createElement('td');
+				tdValor.textContent =carta.valor;
+				tr.appendChild(tdValor);
+			const tdDef = document.createElement('td');
+				tdDef.textContent = esPar(carta.valor);
+				tr.appendChild(tdDef);
+
+			tabla.appendChild(tr);
+		})
+
+		}
+
+		document.getElementById("boton").onclick=cargarTabla;
+	</script>
+
+</body>
+</html>
